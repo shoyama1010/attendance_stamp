@@ -59,3 +59,6 @@ DB_PASSWORD=laravel_pass
     php artisan migrate
     php artisan db:seed
     exit
+
+＊ER図
+
