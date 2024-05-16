@@ -1,6 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisteredController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\StampController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AuthController;
+// use App\Http\Controllers\TestController;
+
+Route::get('/Register', [RegisteredController::class, 'register']);
+Route::get('/', [AuthController::class, 'index']);
+// Route::get('/login', [AuthorController::class, 'auth']);
+// Route::get('/login', [AuthController::class, 'login']);
+Route::get('/', [StampController::class, 'index']);
+Route::post('/attendance', [AttendanceController::class, 'store']);
+// Route::get('/', [TestController::class, 'index']);
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+// Route::get('/', [StampController::class, 'index']);
