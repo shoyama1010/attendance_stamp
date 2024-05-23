@@ -1,20 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisteredController;
-use App\Http\Controllers\AuthorController;
-use App\Http\Controllers\StampController;
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\AuthController;
-// use App\Http\Controllers\TestController;
-
-Route::get('/Register', [RegisteredController::class, 'register']);
-Route::get('/', [AuthController::class, 'index']);
-// Route::get('/login', [AuthorController::class, 'auth']);
-// Route::get('/login', [AuthController::class, 'login']);
-Route::get('/', [StampController::class, 'index']);
-Route::post('/attendance', [AttendanceController::class, 'store']);
-// Route::get('/', [TestController::class, 'index']);
+use App\Http\Controllers\TimeCardController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +16,26 @@ Route::post('/attendance', [AttendanceController::class, 'store']);
 |
 */
 
-// Route::get('/', function () {
-//     return view('index');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Route::get('/', [StampController::class, 'index']);
+Route::get('/', [TimeCardController::class, 'index'])->name('home');
+
+Route::get('/records', [TimeCardController::class, 'records'])->name('records');
+
+Route::post('/records', [TimeCardController::class, 'index'])->name('records');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/timecard/record', [TimeCardController::class, 'recordTime'])->name('timecard.record');
+
+    Route::post('/records/search', [TimeCardController::class, 'search'])->name('records.search');
+});
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
+
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
+// Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
