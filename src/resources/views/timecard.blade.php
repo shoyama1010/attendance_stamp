@@ -20,9 +20,10 @@
 				</ul>
 			</nav>
 		</header>
+
 		<main class="main">
 
-			<h1>{{ auth()->user()->name }}さんお疲れ様です！</h1>
+			<h1>{{auth()->user()->name }}さんお疲れ様です！</h1>
 
 			<div class="buttons">
 				<form action="{{ route('timecard.record') }}" method="post">
@@ -38,6 +39,9 @@
 				</form>
 			</div>
 		</main>
+		<footer>
+			<p>Atte, inc.</p>
+		</footer>
 	</div>
 </body>
 

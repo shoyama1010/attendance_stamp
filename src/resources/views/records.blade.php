@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>勤怠記録</title>
 	<link rel="stylesheet" href="{{ asset('css/records.css') }}">
 </head>
-
 <body>
 	<div class="container">
 		<header class="header">
@@ -20,22 +18,18 @@
 				</ul>
 			</nav>
 		</header>
-
 		<main class="main">
-
-			<div class="date">
+			<!-- <div class="date">
 				<label for="date">日付:</label>
 				<input type="date" id="date" name="date" value="{{ now()->toDateString() }}" readonly>
-			</div>
-			<!-- <form method="POST" action="{{ route('records.search') }}">
-				@csrf
-				<div class="form-group">
-					<label for="date">日付を選択してください:</label>
-					<input type="date" id="date" name="date" value="{{ $date ?? '' }}">
-					<button type="submit" class="btn btn-primary">検索</button>
-				</div>
-			</form> -->
+			</div> -->
+			<div class="date-navigation">
+				<button class="date-button">&lt;</button>
 
+				<span class="date-display">2021-11-01</span>
+
+				<button class="date-button">&gt;</button>
+			</div>
 			<table>
 				<thead>
 					<tr>
@@ -50,18 +44,31 @@
 					@foreach($records as $record)
 					<tr>
 						<td>{{ $record->user->name }}</td>
+
 						<td>{{ $record->start_time ? $record->start_time->format('H:i') : '' }}</td>
 						<td>{{ $record->end_time ? $record->end_time->format('H:i') : '' }}</td>
-						<td>{{ $record->total_break_time ? floor($record->total_break_time / 60) . '時間' . ($record->total_break_time % 60) . '分' : '0分' }}</td>
+						<td>{{ $record->last_break_start ? $record->last_break_start->format('H:i') : '' }}</td>
+				
 						<td>{{ $record->actual_work_time ? floor($record->actual_work_time / 60) . '時間' . ($record->actual_work_time % 60) . '分' : '0分' }}</td>
+
 					</tr>
 					@endforeach
 				</tbody>
 			</table>
-			<div class="pagination-wrapper">
-				{{ $record->appends(['date' => $date])->links() }}
+			<div class="pagination">
+				<button class="page-button">1</button>
+				<button class="page-button">2</button>
+				<button class="page-button">3</button>
+				<button class="page-button">4</button>
+				<button class="page-button">5</button>
+				<span>...</span>
+				<button class="page-button">21</button>
+				<button class="page-button">›</button>
 			</div>
 		</main>
+		<footer>
+			<p>Atte, inc.</p>
+		</footer>
 	</div>
 </body>
 

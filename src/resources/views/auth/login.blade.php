@@ -14,7 +14,7 @@
 		<form method="POST" action="{{ route('login') }}">
 			@csrf
 			@if (count($errors) > 0)
-			<p>入力に問題があります</p>
+			<p>メールもしくはパスワード入力に問題があります。</p>
 			@endif
 			<div class="input-group">
 				<label for="email">メールアドレス</label>

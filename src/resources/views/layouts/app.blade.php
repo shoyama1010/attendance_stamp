@@ -1,15 +1,16 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ja">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>勤怠管理システム</title>
+	<title>Atte</title>
 	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body>
-	<header>
+	<header class="header">
+		<h1>Atte</h1>
 		<nav>
 			<ul>
 				<li><a href="{{ route('home') }}">ホーム</a></li>
@@ -28,4 +29,4 @@
 	</footer>
 </body>
 
-</html> -->
+</html>
