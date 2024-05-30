@@ -24,7 +24,6 @@ DB_PASSWORD=laravel_pass
 
     ```bash
     composer install
-    ```
 
 6. APPキーを生成する。
 
@@ -57,8 +56,8 @@ DB_PASSWORD=laravel_pass
     ```bash
     docker-compose exec php-fpm bash
     php artisan migrate
-    php artisan db:seed
-    exit
 
-＊ER図
+10.アクセス
+http://localhost/
+
 
