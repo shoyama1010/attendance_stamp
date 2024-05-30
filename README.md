@@ -61,3 +61,5 @@ DB_PASSWORD=laravel_pass
 http://localhost/
 
 
+
+
