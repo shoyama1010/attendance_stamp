@@ -94,3 +94,28 @@ th {
 	list-style: none;
 	border-radius: 0.25rem;
 }
+
+.date-navigation {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.date-button {
+	background: none;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	margin: 0 10px;
+	color: #007bff;
+}
+
+footer {
+	text-align: center;
+	padding: 10px 0;
+	background-color: #f9f9f9;
+	/* position: fixed; */
+	width: 100%;
+	bottom: 0;
+}
