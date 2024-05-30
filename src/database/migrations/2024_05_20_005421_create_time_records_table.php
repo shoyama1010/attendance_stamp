@@ -19,6 +19,10 @@ class CreateTimeRecordsTable extends Migration
             $table->date('date');
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
+
+            // $table->timestamp('break_start')->nullable();
+            // $table->timestamp('break_end')->nullable();
+            
             $table->integer('total_break_time')->default(0); // minutes
             $table->integer('actual_work_time')->default(0); // minutes
             $table->timestamps();
