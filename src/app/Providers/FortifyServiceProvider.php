@@ -6,58 +6,61 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Validation\ValidationException;
 
 class FortifyServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
-    }
+	/**
+	 * Register any application services.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+		//
+	}
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot()
-    // : void
-    {
-        Fortify::createUsersUsing(CreateNewUser::class);
+	/**
+	 * Bootstrap any application services.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		Fortify::createUsersUsing(CreateNewUser::class);
+		Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
+		Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
+		Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        Fortify::registerView(function () {
-            return view('auth.register');
-        });
+		Fortify::loginView(function () {
+			return view('auth.login');
+		});
 
-        Fortify::loginView(function () {
-            return view('auth.login');
-        });
-        
-        RateLimiter::for( 'login',function (Request $request) {
-                $email = (string) $request->email;
+		Fortify::registerView(function () {
+			return view('auth.register');
+		});
 
-                return Limit::perMinute(10)->by($email . $request->ip());
-            }
-        );
+		Fortify::authenticateUsing(function (Request $request) {
+			$request->validate([
+				'email' => 'required|email',
+				'password' => 'required|string|min:8',
+			]);
 
-        // Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
-        // Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
-        // Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+			$user = User::where('email', $request->email)->first();
 
-        // RateLimiter::for('login', function (Request $request) {
-        //     $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+			if ($user && Hash::check($request->password, $user->password)) {
+				return $user;
+			}
 
-        //     return Limit::perMinute(5)->by($throttleKey);
-        // });
+			throw ValidationException::withMessages([
+				'email' => [trans('auth.failed')],
+			]);
+		});
 
-        // RateLimiter::for('two-factor', function (Request $request) {
-        //     return Limit::perMinute(5)->by($request->session()->get('login.id'));
-        // });
-    }
+	}
 }
