@@ -14,7 +14,7 @@
 		<form method="POST" action="<?php echo e(route('login')); ?>">
 			<?php echo csrf_field(); ?>
 			<?php if(count($errors) > 0): ?>
-			<p>入力に問題があります</p>
+			<p>メールもしくはパスワード入力に問題があります。</p>
 			<?php endif; ?>
 			<div class="input-group">
 				<label for="email">メールアドレス</label>

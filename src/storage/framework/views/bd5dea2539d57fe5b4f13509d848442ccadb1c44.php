@@ -20,6 +20,7 @@
 				</ul>
 			</nav>
 		</header>
+
 		<main class="main">
 
 			<h1><?php echo e(auth()->user()->name); ?>さんお疲れ様です！</h1>
@@ -38,6 +39,9 @@
 				</form>
 			</div>
 		</main>
+		<footer>
+			<p>Atte, inc.</p>
+		</footer>
 	</div>
 </body>
 
