@@ -19,7 +19,6 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::get('/', [TimeCardController::class, 'index'])->name('home');
 
 Route::get('/records', [TimeCardController::class, 'records'])->name('records');
@@ -28,14 +27,12 @@ Route::post('/records', [TimeCardController::class, 'index'])->name('records');
 
 Route::middleware('auth')->group(function () {
     Route::post('/timecard/record', [TimeCardController::class, 'recordTime'])->name('timecard.record');
-
-    Route::post('/records/search', [TimeCardController::class, 'search'])->name('records.search');
+    Route::post('/records/search', [TimeCardController::class, 'search'])->name('records.search');   
 });
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
-
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
-// Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
